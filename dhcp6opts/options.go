@@ -428,3 +428,13 @@ func GetDNSServers(o dhcp6.Options) (IPs, error) {
 	err = ips.UnmarshalBinary(v)
 	return ips, err
 }
+
+func GetClientFQDN(o dhcp6.Options) (FQDN, error) {
+	v, err := o.GetOne(dhcp6.OptionClientFQDN)
+	if err != nil {
+		return FQDN{}, err
+	}
+	var fqdn FQDN
+	err = fqdn.UnmarshalBinary(v)
+	return fqdn, err
+}
