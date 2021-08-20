@@ -2,7 +2,23 @@
 
 package dhcp6opts
 
-import "fmt"
+import "strconv"
+
+func _() {
+	// An "invalid array index" compiler error signifies that the constant values have changed.
+	// Re-run the stringer command to generate them again.
+	var x [1]struct{}
+	_ = x[ArchTypeIntelx86PC-0]
+	_ = x[ArchTypeNECPC98-1]
+	_ = x[ArchTypeEFIItanium-2]
+	_ = x[ArchTypeDECAlpha-3]
+	_ = x[ArchtypeArcx86-4]
+	_ = x[ArchTypeIntelLeanClient-5]
+	_ = x[ArchTypeEFIIA32-6]
+	_ = x[ArchTypeEFIBC-7]
+	_ = x[ArchTypeEFIXscale-8]
+	_ = x[ArchTypeEFIx8664-9]
+}
 
 const _ArchType_name = "ArchTypeIntelx86PCArchTypeNECPC98ArchTypeEFIItaniumArchTypeDECAlphaArchtypeArcx86ArchTypeIntelLeanClientArchTypeEFIIA32ArchTypeEFIBCArchTypeEFIXscaleArchTypeEFIx8664"
 
@@ -10,9 +26,18 @@ var _ArchType_index = [...]uint8{0, 18, 33, 51, 67, 81, 104, 119, 132, 149, 165}
 
 func (i ArchType) String() string {
 	if i >= ArchType(len(_ArchType_index)-1) {
-		return fmt.Sprintf("ArchType(%d)", i)
+		return "ArchType(" + strconv.FormatInt(int64(i), 10) + ")"
 	}
 	return _ArchType_name[_ArchType_index[i]:_ArchType_index[i+1]]
+}
+func _() {
+	// An "invalid array index" compiler error signifies that the constant values have changed.
+	// Re-run the stringer command to generate them again.
+	var x [1]struct{}
+	_ = x[DUIDTypeLLT-1]
+	_ = x[DUIDTypeEN-2]
+	_ = x[DUIDTypeLL-3]
+	_ = x[DUIDTypeUUID-4]
 }
 
 const _DUIDType_name = "DUIDTypeLLTDUIDTypeENDUIDTypeLLDUIDTypeUUID"
@@ -22,7 +47,7 @@ var _DUIDType_index = [...]uint8{0, 11, 21, 31, 43}
 func (i DUIDType) String() string {
 	i -= 1
 	if i >= DUIDType(len(_DUIDType_index)-1) {
-		return fmt.Sprintf("DUIDType(%d)", i+1)
+		return "DUIDType(" + strconv.FormatInt(int64(i+1), 10) + ")"
 	}
 	return _DUIDType_name[_DUIDType_index[i]:_DUIDType_index[i+1]]
 }

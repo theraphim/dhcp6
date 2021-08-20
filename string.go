@@ -2,7 +2,34 @@
 
 package dhcp6
 
-import "fmt"
+import "strconv"
+
+func _() {
+	// An "invalid array index" compiler error signifies that the constant values have changed.
+	// Re-run the stringer command to generate them again.
+	var x [1]struct{}
+	_ = x[MessageTypeSolicit-1]
+	_ = x[MessageTypeAdvertise-2]
+	_ = x[MessageTypeRequest-3]
+	_ = x[MessageTypeConfirm-4]
+	_ = x[MessageTypeRenew-5]
+	_ = x[MessageTypeRebind-6]
+	_ = x[MessageTypeReply-7]
+	_ = x[MessageTypeRelease-8]
+	_ = x[MessageTypeDecline-9]
+	_ = x[MessageTypeReconfigure-10]
+	_ = x[MessageTypeInformationRequest-11]
+	_ = x[MessageTypeRelayForw-12]
+	_ = x[MessageTypeRelayRepl-13]
+	_ = x[MessageTypeLeasequery-14]
+	_ = x[MessageTypeLeasequeryReply-15]
+	_ = x[MessageTypeLeasequeryDone-16]
+	_ = x[MessageTypeLeasequeryData-17]
+	_ = x[MessageTypeReconfigureRequest-18]
+	_ = x[MessageTypeReconfigureReply-19]
+	_ = x[MessageTypeDHCPv4Query-20]
+	_ = x[MessageTypeDHCPv4Response-21]
+}
 
 const _MessageType_name = "MessageTypeSolicitMessageTypeAdvertiseMessageTypeRequestMessageTypeConfirmMessageTypeRenewMessageTypeRebindMessageTypeReplyMessageTypeReleaseMessageTypeDeclineMessageTypeReconfigureMessageTypeInformationRequestMessageTypeRelayForwMessageTypeRelayReplMessageTypeLeasequeryMessageTypeLeasequeryReplyMessageTypeLeasequeryDoneMessageTypeLeasequeryDataMessageTypeReconfigureRequestMessageTypeReconfigureReplyMessageTypeDHCPv4QueryMessageTypeDHCPv4Response"
 
@@ -11,9 +38,26 @@ var _MessageType_index = [...]uint16{0, 18, 38, 56, 74, 90, 107, 123, 141, 159, 
 func (i MessageType) String() string {
 	i -= 1
 	if i >= MessageType(len(_MessageType_index)-1) {
-		return fmt.Sprintf("MessageType(%d)", i+1)
+		return "MessageType(" + strconv.FormatInt(int64(i+1), 10) + ")"
 	}
 	return _MessageType_name[_MessageType_index[i]:_MessageType_index[i+1]]
+}
+func _() {
+	// An "invalid array index" compiler error signifies that the constant values have changed.
+	// Re-run the stringer command to generate them again.
+	var x [1]struct{}
+	_ = x[StatusSuccess-0]
+	_ = x[StatusUnspecFail-1]
+	_ = x[StatusNoAddrsAvail-2]
+	_ = x[StatusNoBinding-3]
+	_ = x[StatusNotOnLink-4]
+	_ = x[StatusUseMulticast-5]
+	_ = x[StatusNoPrefixAvail-6]
+	_ = x[StatusUnknownQueryType-7]
+	_ = x[StatusMalformedQuery-8]
+	_ = x[StatusNotConfigured-9]
+	_ = x[StatusNotAllowed-10]
+	_ = x[StatusQueryTerminated-11]
 }
 
 const _Status_name = "StatusSuccessStatusUnspecFailStatusNoAddrsAvailStatusNoBindingStatusNotOnLinkStatusUseMulticastStatusNoPrefixAvailStatusUnknownQueryTypeStatusMalformedQueryStatusNotConfiguredStatusNotAllowedStatusQueryTerminated"
@@ -22,25 +66,59 @@ var _Status_index = [...]uint8{0, 13, 29, 47, 62, 77, 95, 114, 136, 156, 175, 19
 
 func (i Status) String() string {
 	if i >= Status(len(_Status_index)-1) {
-		return fmt.Sprintf("Status(%d)", i)
+		return "Status(" + strconv.FormatInt(int64(i), 10) + ")"
 	}
 	return _Status_name[_Status_index[i]:_Status_index[i+1]]
+}
+func _() {
+	// An "invalid array index" compiler error signifies that the constant values have changed.
+	// Re-run the stringer command to generate them again.
+	var x [1]struct{}
+	_ = x[OptionClientID-1]
+	_ = x[OptionServerID-2]
+	_ = x[OptionIANA-3]
+	_ = x[OptionIATA-4]
+	_ = x[OptionIAAddr-5]
+	_ = x[OptionORO-6]
+	_ = x[OptionPreference-7]
+	_ = x[OptionElapsedTime-8]
+	_ = x[OptionRelayMsg-9]
+	_ = x[OptionAuth-11]
+	_ = x[OptionUnicast-12]
+	_ = x[OptionStatusCode-13]
+	_ = x[OptionRapidCommit-14]
+	_ = x[OptionUserClass-15]
+	_ = x[OptionVendorClass-16]
+	_ = x[OptionVendorOpts-17]
+	_ = x[OptionInterfaceID-18]
+	_ = x[OptionReconfMsg-19]
+	_ = x[OptionReconfAccept-20]
+	_ = x[OptionDNSServers-23]
+	_ = x[OptionDomainList-24]
+	_ = x[OptionIAPD-25]
+	_ = x[OptionIAPrefix-26]
+	_ = x[OptionRemoteIdentifier-37]
+	_ = x[OptionClientFQDN-39]
+	_ = x[OptionBootFileURL-59]
+	_ = x[OptionBootFileParam-60]
+	_ = x[OptionClientArchType-61]
+	_ = x[OptionNII-62]
 }
 
 const (
 	_OptionCode_name_0 = "OptionClientIDOptionServerIDOptionIANAOptionIATAOptionIAAddrOptionOROOptionPreferenceOptionElapsedTimeOptionRelayMsg"
 	_OptionCode_name_1 = "OptionAuthOptionUnicastOptionStatusCodeOptionRapidCommitOptionUserClassOptionVendorClassOptionVendorOptsOptionInterfaceIDOptionReconfMsgOptionReconfAccept"
-	_OptionCode_name_2 = "OptionIAPDOptionIAPrefix"
+	_OptionCode_name_2 = "OptionDNSServersOptionDomainListOptionIAPDOptionIAPrefix"
 	_OptionCode_name_3 = "OptionRemoteIdentifier"
-	_OptionCode_name_4 = "OptionBootFileURLOptionBootFileParamOptionClientArchTypeOptionNII"
+	_OptionCode_name_4 = "OptionClientFQDN"
+	_OptionCode_name_5 = "OptionBootFileURLOptionBootFileParamOptionClientArchTypeOptionNII"
 )
 
 var (
 	_OptionCode_index_0 = [...]uint8{0, 14, 28, 38, 48, 60, 69, 85, 102, 116}
 	_OptionCode_index_1 = [...]uint8{0, 10, 23, 39, 56, 71, 88, 104, 121, 136, 154}
-	_OptionCode_index_2 = [...]uint8{0, 10, 24}
-	_OptionCode_index_3 = [...]uint8{0, 22}
-	_OptionCode_index_4 = [...]uint8{0, 17, 36, 56, 65}
+	_OptionCode_index_2 = [...]uint8{0, 16, 32, 42, 56}
+	_OptionCode_index_5 = [...]uint8{0, 17, 36, 56, 65}
 )
 
 func (i OptionCode) String() string {
@@ -51,15 +129,17 @@ func (i OptionCode) String() string {
 	case 11 <= i && i <= 20:
 		i -= 11
 		return _OptionCode_name_1[_OptionCode_index_1[i]:_OptionCode_index_1[i+1]]
-	case 25 <= i && i <= 26:
-		i -= 25
+	case 23 <= i && i <= 26:
+		i -= 23
 		return _OptionCode_name_2[_OptionCode_index_2[i]:_OptionCode_index_2[i+1]]
 	case i == 37:
 		return _OptionCode_name_3
+	case i == 39:
+		return _OptionCode_name_4
 	case 59 <= i && i <= 62:
 		i -= 59
-		return _OptionCode_name_4[_OptionCode_index_4[i]:_OptionCode_index_4[i+1]]
+		return _OptionCode_name_5[_OptionCode_index_5[i]:_OptionCode_index_5[i+1]]
 	default:
-		return fmt.Sprintf("OptionCode(%d)", i)
+		return "OptionCode(" + strconv.FormatInt(int64(i), 10) + ")"
 	}
 }
