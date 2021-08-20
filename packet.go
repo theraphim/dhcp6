@@ -1,6 +1,8 @@
 package dhcp6
 
 import (
+	"net"
+
 	"github.com/mdlayher/dhcp6/internal/buffer"
 )
 
@@ -18,6 +20,11 @@ type Packet struct {
 	// be the same for all message exchanges in one DHCP transaction.
 	TransactionID [3]byte
 
+	// HopCount (and addresses) are used when packet has gone through relay,
+	// so MessageType is either MessageTypeRelayForw or MessageTypeRelayRepl.
+	HopCount                 uint8
+	LinkAddress, PeerAddress net.IP
+
 	// Options specifies a map of DHCP options.  Its methods can be used to
 	// retrieve data from an incoming packet, or send data with an outgoing
 	// packet.
@@ -33,7 +40,14 @@ func (p *Packet) MarshalBinary() ([]byte, error) {
 	b := buffer.New(nil)
 
 	b.Write8(uint8(p.MessageType))
-	b.WriteBytes(p.TransactionID[:])
+
+	if p.MessageType == MessageTypeRelayForw || p.MessageType == MessageTypeRelayRepl {
+		b.Write8(p.HopCount)
+		b.WriteBytes(p.LinkAddress)
+		b.WriteBytes(p.PeerAddress)
+	} else {
+		b.WriteBytes(p.TransactionID[:])
+	}
 
 	opts, err := p.Options.MarshalBinary()
 	if err != nil {
@@ -55,7 +69,17 @@ func (p *Packet) UnmarshalBinary(q []byte) error {
 	}
 
 	p.MessageType = MessageType(b.Read8())
-	b.ReadBytes(p.TransactionID[:])
+	if p.MessageType == MessageTypeRelayForw || p.MessageType == MessageTypeRelayRepl {
+		if b.Len() < 33 {
+			return ErrInvalidPacket
+		}
+		p.HopCount = b.Read8()
+		p.LinkAddress, p.PeerAddress = make(net.IP, 16), make(net.IP, 16)
+		b.ReadBytes(p.LinkAddress)
+		b.ReadBytes(p.PeerAddress)
+	} else {
+		b.ReadBytes(p.TransactionID[:])
+	}
 
 	if err := (&p.Options).UnmarshalBinary(b.Remaining()); err != nil {
 		return ErrInvalidPacket

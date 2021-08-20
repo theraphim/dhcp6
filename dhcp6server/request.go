@@ -30,6 +30,15 @@ type Request struct {
 
 	// Network address which was used to contact the DHCP server.
 	RemoteAddr string
+
+	RelayOptions *RequestRelayOptions
+}
+
+type RequestRelayOptions struct {
+	HopCount                 uint8
+	LinkAddress, PeerAddress net.IP
+	Length                   int64
+	Options                  dhcp6.Options
 }
 
 // ParseRequest creates a new Request from an input byte slice and UDP address.
@@ -43,11 +52,32 @@ func ParseRequest(b []byte, remoteAddr *net.UDPAddr) (*Request, error) {
 		return nil, err
 	}
 
+	var ro *RequestRelayOptions
+	if p.MessageType == dhcp6.MessageTypeRelayForw || p.MessageType == dhcp6.MessageTypeRelayRepl {
+		ro = &RequestRelayOptions{
+			HopCount:    p.HopCount,
+			LinkAddress: p.LinkAddress,
+			PeerAddress: p.PeerAddress,
+			Length:      int64(len(b)),
+			Options:     p.Options,
+		}
+		var err error
+		b, err = p.Options.GetOne(dhcp6.OptionRelayMsg)
+		if err != nil {
+			return nil, err
+		}
+		p = new(dhcp6.Packet)
+		if err := p.UnmarshalBinary(b); err != nil {
+			return nil, err
+		}
+	}
+
 	return &Request{
 		MessageType:   p.MessageType,
 		TransactionID: p.TransactionID,
 		Options:       p.Options,
 		Length:        int64(len(b)),
 		RemoteAddr:    remoteAddr.String(),
+		RelayOptions:  ro,
 	}, nil
 }

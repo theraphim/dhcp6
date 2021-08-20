@@ -264,6 +264,24 @@ func (r *response) Send(mt dhcp6.MessageType) (int, error) {
 		return 0, err
 	}
 
+	if ro := r.req.RelayOptions; ro != nil {
+		p = &dhcp6.Packet{
+			MessageType: dhcp6.MessageTypeRelayRepl,
+			HopCount:    ro.HopCount,
+			LinkAddress: ro.LinkAddress,
+			PeerAddress: ro.PeerAddress,
+			Options:     make(dhcp6.Options),
+		}
+		if id, _ := ro.Options.GetOne(dhcp6.OptionInterfaceID); len(id) != 0 {
+			p.Options.AddRaw(dhcp6.OptionInterfaceID, id)
+		}
+		p.Options.AddRaw(dhcp6.OptionRelayMsg, b)
+		b, err = p.MarshalBinary()
+		if err != nil {
+			return 0, err
+		}
+	}
+
 	return r.conn.WriteTo(b, nil, r.remoteAddr)
 }
 
