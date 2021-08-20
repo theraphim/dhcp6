@@ -118,6 +118,8 @@ const (
 
 	// RFC 4649
 	OptionRemoteIdentifier OptionCode = 37
+	// rfc4701
+	OptionClientFQDN OptionCode = 39
 
 	// RFC 5970
 	OptionBootFileURL    OptionCode = 59
