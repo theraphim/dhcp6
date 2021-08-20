@@ -110,6 +110,7 @@ const (
 
 	// RFC 3646
 	OptionDNSServers OptionCode = 23
+	OptionDomainList OptionCode = 24
 
 	// RFC 3633
 	OptionIAPD     OptionCode = 25
